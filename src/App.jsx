@@ -1,36 +1,37 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import './App.css'
-import { getRequest, apiUrl } from './api'
-
-const ActiveScansCard = ({scan}) => {
-  return (
-    <div className="scan-card">
-      <h2>{scan}</h2>
-    </div>
-  )
-}
+import { getRequest, postRequest } from './api'
+import ActiveScans from './components/ActiveScans'
+import StartScan from './components/StartScan'
+import ArbLogo from './assets/arb.png'
 
 function App() {
   const [activeScans, setActiveScans] = useState([])
 
-  useEffect(() => {
-    const getData = async () => {
-      const data = await getRequest(`${apiUrl}/active`)
-      setActiveScans(data)
-    }
-    getData()
+  const getData = useCallback(async () => {
+    const data = await getRequest('/active')
+    setActiveScans(data)
   }, [])
+
+  useEffect(() => {
+    getData()
+  }, [getData])
+
+  async function stopScan(slug) {
+    await postRequest('/stop', { collectionSlug: slug })
+    getData()
+  }
+
+  async function startScan(slug, margin, increment) {
+    await postRequest('/start', { collectionSlug: slug, margin: Number(margin), increment: Number(increment) })
+    getData()
+  }
 
   return (
     <div className="App">
-      <h1>Active Scans</h1>
-      {activeScans.length === 0 ? (
-        <p>No active scans</p>
-      ) : (
-        activeScans.map((scan, index) => (
-          <ActiveScansCard key={index} scan={scan} />
-        ))
-      )}
+      <img src={ArbLogo} alt="Arb Anderson" />
+      <StartScan startScan={startScan} />
+      <ActiveScans activeScans={activeScans} stopScan={stopScan} />
     </div>
   )
 }

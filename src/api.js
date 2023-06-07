@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export const apiUrl = import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_API_URL
 
-export const getRequest = async (url, retryCount = 0) => {
+export const getRequest = async (endPoint, retryCount = 0) => {
     const options = {
         method: 'GET',
-        url,
+        url: apiUrl + endPoint,
         headers: {
             accept: 'application/json',
             'Content-Type': 'application/json'
@@ -19,7 +19,32 @@ export const getRequest = async (url, retryCount = 0) => {
             throw new Error(error)
         } else {
             await new Promise(r => setTimeout(r, 2000))
-            return getRequest(url, retryCount + 1)
+            return getRequest(endPoint, retryCount + 1)
+        }
+    }
+}
+
+export const postRequest = async (endPoint, payload, retryCount = 0) => {
+    const options = {
+        method: 'POST',
+        url: apiUrl + endPoint,
+        headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        data: payload
+    }
+    try {
+        const { data } = await axios.request(options)
+        return data
+    } catch (error) {
+        if (retryCount > 3) {
+            return {
+                error: error.response.data
+            }
+        } else {
+            await new Promise(r => setTimeout(r, 2000))
+            return postRequest(endPoint, payload, retryCount + 1)
         }
     }
 }
