@@ -83,14 +83,18 @@
 .stopButton {
   background-color: red;
   color: white;
-  border-radius: 1rem;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  width: 2rem;
-  height: 2rem;
+  border-radius: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
   cursor: pointer;
   font-weight: bolder;
   font-size: 0.8rem;
+}
+
+.scanText { 
+  font-size: 1rem;
+  font-weight: bolder;
+  margin: 0.8rem;
 }
 
 /* let's do media size 900px+ */
@@ -107,6 +111,11 @@
   .stopButton {
     width: 3rem;
     height: 3rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+  }
+
+  .scanText {
+    font-size: 1.5rem;
   }
 }

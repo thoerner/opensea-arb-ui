@@ -11,7 +11,7 @@ const ActiveScans = ({ activeScans, stopScan }) => {
                             className="stopButton"
                             onClick={() => stopScan(scan)}
                         >X</button>
-                        <h2>{scan}</h2>
+                        <h2 className="scanText">{scan}</h2>
                     </div>
                 ))
             )}
