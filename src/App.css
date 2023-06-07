@@ -86,11 +86,11 @@
   border-radius: 1rem;
   padding: 0.5rem;
   margin: 0.5rem;
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
   font-weight: bolder;
-  font-size: 1.25rem;
+  font-size: 0.8rem;
 }
 
 /* let's do media size 900px+ */
@@ -102,5 +102,11 @@
 
   #activeScans {
     width: 50vw;
+  }
+
+  .stopButton {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
   }
 }
