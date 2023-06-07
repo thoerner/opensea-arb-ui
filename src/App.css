@@ -5,7 +5,19 @@
   text-align: center;
 }
 
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 #activeScans {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: seagreen;
   opacity: 0.7;
   padding: 1rem;
@@ -15,7 +27,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-  width: 50vw;
+  width: 75vw;
 }
 
 #startScan {
@@ -24,13 +36,10 @@
   opacity: 0.7;
   border-radius: 1rem;
   padding: 1rem;
-  margin: 1rem;
-  width: 3rem;
   cursor: pointer;
   font-weight: bolder;
   font-size: 1.25rem;
-  width: 50vw;
-  overflow: scroll;
+  width: 75vw;
 }
 
 #inputForm {
@@ -55,8 +64,8 @@
   height: 3rem;
   border-radius: 1rem;
   border: 1px solid black;
+  max-width: 75%;
 }
-
 
 .scan {
   background-color: white;
@@ -67,6 +76,8 @@
   flex-wrap: wrap;
   flex-direction: row;
   color: black;
+  width: 75vw;
+  max-width: 75%;
 }
 
 .stopButton {
@@ -80,4 +91,16 @@
   cursor: pointer;
   font-weight: bolder;
   font-size: 1.25rem;
+}
+
+/* let's do media size 900px+ */
+@media (min-width: 900px) {
+
+  #startScan {
+    width: 50vw;
+  }
+
+  #activeScans {
+    width: 50vw;
+  }
 }
