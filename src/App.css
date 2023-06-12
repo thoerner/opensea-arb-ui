@@ -30,13 +30,21 @@
   width: 75vw;
 }
 
+button {
+  margin: 1rem;
+}
+
 #startScan {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   background-color: seagreen;
   color: white;
   opacity: 0.7;
   border-radius: 1rem;
   padding: 1rem;
-  cursor: pointer;
   font-weight: bolder;
   font-size: 1.25rem;
   width: 75vw;
@@ -97,7 +105,16 @@
   margin: 0.8rem;
 }
 
-/* let's do media size 900px+ */
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
 @media (min-width: 900px) {
 
   #startScan {
