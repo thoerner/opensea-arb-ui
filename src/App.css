@@ -34,6 +34,11 @@ button {
   margin: 1rem;
 }
 
+.collectionInfo {
+  overflow: scroll;
+  max-height: 40vh;
+}
+
 #startScan {
   display: flex;
   flex-direction: row;
