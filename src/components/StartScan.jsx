@@ -88,7 +88,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
           </label>
         </div>
         <button type="button" onClick={handleFetchInfo}>Fetch Collection Info</button>
-        <button type="submit">Start Scan</button>
+        <button type="submit">Start Scan/Offers</button>
       </form>
       <div className='collectionInfo'>
         {collectionInfo && <>
