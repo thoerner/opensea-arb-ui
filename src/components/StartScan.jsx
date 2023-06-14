@@ -70,12 +70,13 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
         <button type="submit">Start Scan</button>
       </form>
       <div className='collectionInfo'>
-        {collectionInfo && <pre>
-          {collectionInfo.contractInfo.name}<br/><br/>
+        {collectionInfo && <>
+          <a href={`https://opensea.io/collection/${slug}`} target='_blank' rel="noreferrer">{collectionInfo.name}</a><br/><br/>
+          {collectionInfo.creatorFee.isEnforced ? <><span style={{color: 'red'}}>Creator Fee enforced!</span> <span style={{color: 'yellow'}}>{collectionInfo.creatorFee.fee / 100}%</span></> : <span style={{color: 'darkgreen'}}>Creator Fee is not enforced</span>}<br/>
+          <span style={{color: 'purple'}}>Floor: {collectionInfo.stats.floor_price}</span><br/>
           Traits:
-          <RenderObject object={collectionInfo.traits} /><br/>
-          Floor: {collectionInfo.stats.floor_price}
-        </pre>}
+          <RenderObject object={collectionInfo.traits} />
+        </>}
       </div>
     </div>
   )

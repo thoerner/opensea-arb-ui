@@ -9,14 +9,14 @@ import toast, { Toaster } from 'react-hot-toast';
 function App() {
   const [activeScans, setActiveScans] = useState([])
 
-  const getData = useCallback(async () => {
-    const data = await getRequest('/active')
-    setActiveScans(data)
+  const init = useCallback(async () => {
+    const active = await getRequest('/active')
+    setActiveScans(active)
   }, [])
 
   useEffect(() => {
-    getData()
-  }, [getData])
+    init()
+  }, [init])
 
   function toastResponse(response) {
     if (response.error) {
@@ -24,18 +24,18 @@ function App() {
     } else {
       toast.success(response)
     }
-  } 
+  }
 
   async function stopScan(slug) {
     const response = await postRequest('/stop', { collectionSlug: slug })
     toastResponse(response)
-    getData()
+    init()
   }
 
   async function startScan(slug, margin, increment) {
     const response = await postRequest('/start', { collectionSlug: slug, margin: Number(margin), increment: Number(increment) })
     toastResponse(response)
-    getData()
+    init()
   }
 
   async function getCollectionInfo(slug) {
