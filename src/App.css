@@ -39,11 +39,35 @@ button {
   max-height: 40vh;
 }
 
+select {
+  margin: 1rem;
+  font-size: 1.25rem;
+  font-weight: bolder;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid black;
+  max-width: 75%;
+}
+
+option {
+  font-size: 1.25rem;
+  font-weight: bolder;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid black;
+  max-width: 75%;
+}
+
+option:hover {
+  background-color: seagreen;
+  color: white;
+}
+
 #startScan {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-color: seagreen;
   color: white;
@@ -59,8 +83,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin: 1rem;
+  align-items: flex-start;
 }
 
 #inputForm label {
