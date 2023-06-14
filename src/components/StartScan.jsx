@@ -93,6 +93,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
       <div className='collectionInfo'>
         {collectionInfo && <>
           <a href={`https://opensea.io/collection/${slug}`} target='_blank' rel="noreferrer">{collectionInfo.name}</a><br/><br/>
+          <img src={collectionInfo.imageUrl} alt={collectionInfo.name} style={{width: '100px'}}/><br/>
           {collectionInfo.creatorFee.isEnforced ? <><span style={{color: 'red'}}>Creator Fee enforced!</span> <span style={{color: 'yellow'}}>{collectionInfo.creatorFee.fee / 100}%</span></> : <span style={{color: 'darkgreen'}}>Creator Fee is not enforced</span>}<br/>
           <span style={{color: 'purple'}}>Floor: {collectionInfo.stats.floor_price}</span><br/>
           <span style={{color: 'orange'}}>Trait:</span>
