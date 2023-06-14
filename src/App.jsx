@@ -39,7 +39,7 @@ function App() {
   }
 
   async function getCollectionInfo(slug) {
-    const response = await postRequest('/collectionInfo', { collectionSlug: slug })
+    const response = await getRequest(`/collectionInfo/${slug}`)
     return response
   }
 
