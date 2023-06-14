@@ -46,7 +46,7 @@ function App() {
   return (
     <div className="App">
       <Toaster />
-      <img src={ArbLogo} alt="Arb Anderson" />
+      <a href="https://opensea.io/ArbAnderson" target="_blank" rel="noreferrer"><img src={ArbLogo} alt="Arb Anderson" style={{transform: "translateY(7px)"}} /></a>
       <StartScan startScan={startScan} fetchCollectionInfo={getCollectionInfo} />
       <ActiveScans activeScans={activeScans} stopScan={stopScan} />
     </div>
