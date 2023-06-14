@@ -59,7 +59,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
               value={slug}
               onChange={event => setSlug(event.target.value)}
               placeholder="Enter collection slug"
-              style={{width: '175px'}}
+              style={{width: '200px'}}
               />
           </label>
         </div>
