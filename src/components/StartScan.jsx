@@ -50,7 +50,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
 
   return (
     <div id="startScan">
-      <form id="inputForm" onSubmit={handleSubmit}>
+      <form id="inputForm" onSubmit={handleFetchInfo}>
         <div>
           <label className='formInput'>
               Collection Slug:{" "}
@@ -87,8 +87,8 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
               />
           </label>
         </div>
-        <button type="submit" onClick={handleFetchInfo} style={{backgroundColor: "blue", border: "1px solid darkblue"}}>Fetch Collection Info</button>
-        <button type="button" style={{backgroundColor: "green", border: "1px solid darkgreen"}}>Start Scan/Offers</button>
+        <button type="submit" style={{backgroundColor: "blue", border: "1px solid darkblue"}}>Fetch Collection Info</button>
+        <button type="button" onClick={handleSubmit} style={{backgroundColor: "green", border: "1px solid darkgreen"}}>Start Scan/Offers</button>
       </form>
       <div className='collectionInfo'>
         {collectionInfo && <>
