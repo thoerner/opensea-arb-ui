@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const StartScan = ({ startScan, fetchCollectionInfo }) => {
   const [slug, setSlug] = useState('')
-  const [margin, setMargin] = useState('0.15')
+  const [margin, setMargin] = useState('0.25')
   const [increment, setIncrement] = useState('0.01')
   const [collectionInfo, setCollectionInfo] = useState(null)
 
