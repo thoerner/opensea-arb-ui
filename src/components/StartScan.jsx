@@ -1,15 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import toast from 'react-hot-toast'
+
+const CollectionInfo = ({ collectionInfo, slug }) => {
+  if (!collectionInfo || !slug) return null
+
+  const RenderDropdown = ({ keys }) => {
+    const keysToArray = (object) => {
+      return Object.keys(object)
+    }
+    let array = keysToArray(keys)
+    return array.map(key => {
+      return (
+        <option key={key} value={key}>{key}</option>
+      );
+    });
+  };
+
+  return (
+    <div className='collectionInfo'>
+        {collectionInfo && <>
+          <a href={`https://opensea.io/collection/${slug}`} target='_blank' rel="noreferrer">{collectionInfo.name}</a><br/><br/>
+          <img src={collectionInfo.imageUrl} alt={collectionInfo.name} style={{width: '100px'}}/><br/>
+          {collectionInfo.creatorFee.isEnforced ? <><span style={{color: 'red'}}>Creator Fee enforced!</span> <span style={{color: 'yellow'}}>{collectionInfo.creatorFee.fee / 100}%</span></> : <span style={{color: 'darkgreen'}}>Creator Fee is not enforced</span>}<br/>
+          <span style={{color: 'purple'}}>Floor: {collectionInfo.stats.floor_price}</span><br/>
+          <span style={{color: 'blue'}}>Schema: {collectionInfo.schema}</span><br/>
+          <span style={{color: 'orange'}}>Trait:</span>
+          <select name="traits" id="traits">
+            <option key="All" value="All">All</option>
+            <RenderDropdown keys={collectionInfo.traits} />
+          </select>
+        </>}
+      </div>
+  )
+}
 
 const StartScan = ({ startScan, fetchCollectionInfo }) => {
   const [slug, setSlug] = useState('')
   const [margin, setMargin] = useState('0.25')
   const [increment, setIncrement] = useState('0.01')
+  const [schema, setSchema] = useState('ERC721')
   const [collectionInfo, setCollectionInfo] = useState(null)
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    if (!collectionInfo) {
+      toast.error('Please fetch collection info first')
+      return
+    }
     if (slug !== '') {
-      startScan(slug, margin, increment)
+      startScan(slug, margin, increment, schema)
       setSlug('')
     }
   }
@@ -22,31 +61,30 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
     }
   }
 
-  const RenderObject = ({ object }) => {
-    return Object.keys(object).map(key => {
-      const value = object[key];
-      return (
-        <div key={key}>
-          <strong>{key}: </strong>
-          {typeof value === 'object' && value !== null
-            ? <RenderObject object={value} />
-            : JSON.stringify(value)}
-        </div>
-      );
-    });
-  };
+  useEffect(() => {
+    if (collectionInfo) {
+      setSchema(collectionInfo.schema)
+    }
+  }, [collectionInfo])
 
-  const keysToArray = (object) => {
-    return Object.keys(object)
+  // const RenderObject = ({ object }) => {
+  //   return Object.keys(object).map(key => {
+  //     const value = object[key];
+  //     return (
+  //       <div key={key}>
+  //         <strong>{key}: </strong>
+  //         {typeof value === 'object' && value !== null
+  //           ? <RenderObject object={value} />
+  //           : JSON.stringify(value)}
+  //       </div>
+  //     );
+  //   });
+  // };
+
+  const handleSlugChange = (event) => {
+    setSlug(event.target.value)
+    setCollectionInfo(null)
   }
-
-  const RenderDropdown = ({ array }) => {
-    return array.map(key => {
-      return (
-        <option key={key} value={key}>{key}</option>
-      );
-    });
-  };
 
   return (
     <div id="startScan">
@@ -57,7 +95,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
               <input 
               type="text"
               value={slug}
-              onChange={event => setSlug(event.target.value)}
+              onChange={event => handleSlugChange(event)}
               placeholder="Enter collection slug"
               style={{width: '200px'}}
               />
@@ -90,19 +128,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
         <button type="submit" style={{backgroundColor: "blue", border: "1px solid darkblue"}}>Fetch Collection Info</button>
         <button type="button" onClick={handleSubmit} style={{backgroundColor: "green", border: "1px solid darkgreen"}}>Start Scan/Offers</button>
       </form>
-      <div className='collectionInfo'>
-        {collectionInfo && <>
-          <a href={`https://opensea.io/collection/${slug}`} target='_blank' rel="noreferrer">{collectionInfo.name}</a><br/><br/>
-          <img src={collectionInfo.imageUrl} alt={collectionInfo.name} style={{width: '100px'}}/><br/>
-          {collectionInfo.creatorFee.isEnforced ? <><span style={{color: 'red'}}>Creator Fee enforced!</span> <span style={{color: 'yellow'}}>{collectionInfo.creatorFee.fee / 100}%</span></> : <span style={{color: 'darkgreen'}}>Creator Fee is not enforced</span>}<br/>
-          <span style={{color: 'purple'}}>Floor: {collectionInfo.stats.floor_price}</span><br/>
-          <span style={{color: 'orange'}}>Trait:</span>
-          <select name="traits" id="traits">
-            <option key="All" value="All">All</option>
-            <RenderDropdown array={keysToArray(collectionInfo.traits)} />
-          </select>
-        </>}
-      </div>
+      <CollectionInfo collectionInfo={collectionInfo} slug={slug}/>
     </div>
   )
 }
