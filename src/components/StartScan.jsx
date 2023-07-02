@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
-const CollectionInfo = ({ collectionInfo, slug, setToken }) => {
+const CollectionInfo = ({ collectionInfo, slug, setToken, value }) => {
   if (!collectionInfo || !slug) return null
+
+  if (value === null) {
+    value = ''
+  }
 
   const TraitsDropdown = ({ keys }) => {
     const keysToArray = (object) => {
@@ -16,12 +20,12 @@ const CollectionInfo = ({ collectionInfo, slug, setToken }) => {
     });
   };
 
-  const ERC1155Dropdown = ({ items }) => {
+  const ERC1155Dropdown = ({ items, setToken, value }) => {
     const handleChange = (event) => {
       setToken(event.target.value)
     }
     return (
-      <select name="erc1155-tokens" id="erc1155-tokens" onChange={handleChange}>
+      <select name="erc1155-tokens" id="erc1155-tokens" onChange={handleChange} value={value}>
         {items.map(item => (
           <option key={item.identifier} value={item.identifier}>
             {item.name}
@@ -42,7 +46,7 @@ const CollectionInfo = ({ collectionInfo, slug, setToken }) => {
           {collectionInfo.schema === 'ERC721' ? <></> :
           <>
           <span style={{color: 'orange'}}>Token:</span>
-          <ERC1155Dropdown items={collectionInfo.nfts} />
+          <ERC1155Dropdown items={collectionInfo.nfts} setToken={setToken} value={value}/>
           </>
           }
         </>}
@@ -145,7 +149,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
         <button type="submit" style={{backgroundColor: "blue", border: "1px solid darkblue"}}>Fetch Collection Info</button>
         <button type="button" onClick={handleSubmit} style={{backgroundColor: "green", border: "1px solid darkgreen"}}>Start Scan/Offers</button>
       </form>
-      <CollectionInfo collectionInfo={collectionInfo} slug={slug} setToken={setToken}/>
+      <CollectionInfo collectionInfo={collectionInfo} slug={slug} setToken={setToken} value={token}/>
     </div>
   )
 }
