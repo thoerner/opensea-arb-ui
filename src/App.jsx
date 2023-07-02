@@ -32,8 +32,8 @@ function App() {
     init()
   }
 
-  async function startScan(slug, margin, increment, schema) {
-    const response = await postRequest('/start', { collectionSlug: slug, margin: Number(margin), increment: Number(increment), schema: schema })
+  async function startScan(slug, margin, increment, schema, token) {
+    const response = await postRequest('/start', { collectionSlug: slug, margin: Number(margin), increment: Number(increment), schema: schema, token: token})
     toastResponse(response)
     init()
   }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
-const CollectionInfo = ({ collectionInfo, slug }) => {
+const CollectionInfo = ({ collectionInfo, slug, setToken }) => {
   if (!collectionInfo || !slug) return null
 
-  const RenderDropdown = ({ keys }) => {
+  const TraitsDropdown = ({ keys }) => {
     const keysToArray = (object) => {
       return Object.keys(object)
     }
@@ -16,6 +16,21 @@ const CollectionInfo = ({ collectionInfo, slug }) => {
     });
   };
 
+  const ERC1155Dropdown = ({ items }) => {
+    const handleChange = (event) => {
+      setToken(event.target.value)
+    }
+    return (
+      <select name="erc1155-tokens" id="erc1155-tokens" onChange={handleChange}>
+        {items.map(item => (
+          <option key={item.identifier} value={item.identifier}>
+            {item.name}
+          </option>
+        ))}
+      </select>
+    );
+  };
+
   return (
     <div className='collectionInfo'>
         {collectionInfo && <>
@@ -24,11 +39,12 @@ const CollectionInfo = ({ collectionInfo, slug }) => {
           {collectionInfo.creatorFee.isEnforced ? <><span style={{color: 'red'}}>Creator Fee enforced!</span> <span style={{color: 'yellow'}}>{collectionInfo.creatorFee.fee / 100}%</span></> : <span style={{color: 'darkgreen'}}>Creator Fee is not enforced</span>}<br/>
           <span style={{color: 'purple'}}>Floor: {collectionInfo.stats.floor_price}</span><br/>
           <span style={{color: 'blue'}}>Schema: {collectionInfo.schema}</span><br/>
-          <span style={{color: 'orange'}}>Trait:</span>
-          <select name="traits" id="traits">
-            <option key="All" value="All">All</option>
-            <RenderDropdown keys={collectionInfo.traits} />
-          </select>
+          {collectionInfo.schema === 'ERC721' ? <></> :
+          <>
+          <span style={{color: 'orange'}}>Token:</span>
+          <ERC1155Dropdown items={collectionInfo.nfts} />
+          </>
+          }
         </>}
       </div>
   )
@@ -39,6 +55,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
   const [margin, setMargin] = useState('0.25')
   const [increment, setIncrement] = useState('0.01')
   const [schema, setSchema] = useState('ERC721')
+  const [token, setToken] = useState(null)
   const [collectionInfo, setCollectionInfo] = useState(null)
 
   const handleSubmit = (event) => {
@@ -48,7 +65,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
       return
     }
     if (slug !== '') {
-      startScan(slug, margin, increment, schema)
+      startScan(slug, margin, increment, schema, token)
       setSlug('')
     }
   }
@@ -128,7 +145,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
         <button type="submit" style={{backgroundColor: "blue", border: "1px solid darkblue"}}>Fetch Collection Info</button>
         <button type="button" onClick={handleSubmit} style={{backgroundColor: "green", border: "1px solid darkgreen"}}>Start Scan/Offers</button>
       </form>
-      <CollectionInfo collectionInfo={collectionInfo} slug={slug}/>
+      <CollectionInfo collectionInfo={collectionInfo} slug={slug} setToken={setToken}/>
     </div>
   )
 }
