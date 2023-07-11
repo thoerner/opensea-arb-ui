@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
+import { ERC1155Dropdown } from './ERC1155Dropdown'
 
 const CollectionInfo = ({ collectionInfo, slug, setToken, value }) => {
   if (!collectionInfo || !slug) return null
@@ -7,33 +8,6 @@ const CollectionInfo = ({ collectionInfo, slug, setToken, value }) => {
   if (value === null) {
     value = ''
   }
-
-  const TraitsDropdown = ({ keys }) => {
-    const keysToArray = (object) => {
-      return Object.keys(object)
-    }
-    let array = keysToArray(keys)
-    return array.map(key => {
-      return (
-        <option key={key} value={key}>{key}</option>
-      );
-    });
-  };
-
-  const ERC1155Dropdown = ({ items, setToken, value }) => {
-    const handleChange = (event) => {
-      setToken(event.target.value)
-    }
-    return (
-      <select name="erc1155-tokens" id="erc1155-tokens" onChange={handleChange} value={value}>
-        {items.map(item => (
-          <option key={item.identifier} value={item.identifier}>
-            {item.name}
-          </option>
-        ))}
-      </select>
-    );
-  };
 
   return (
     <div className='collectionInfo'>
@@ -60,6 +34,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
   const [increment, setIncrement] = useState('0.01')
   const [schema, setSchema] = useState('ERC721')
   const [token, setToken] = useState(null)
+  const [superblaster, setSuperblaster] = useState(false)
   const [collectionInfo, setCollectionInfo] = useState(null)
 
   const handleSubmit = (event) => {
@@ -69,7 +44,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
       return
     }
     if (slug !== '') {
-      startScan(slug, margin, increment, schema, token)
+      startScan(slug, margin, increment, schema, token, superblaster)
       setSlug('')
     }
   }
@@ -87,20 +62,6 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
       setSchema(collectionInfo.schema)
     }
   }, [collectionInfo])
-
-  // const RenderObject = ({ object }) => {
-  //   return Object.keys(object).map(key => {
-  //     const value = object[key];
-  //     return (
-  //       <div key={key}>
-  //         <strong>{key}: </strong>
-  //         {typeof value === 'object' && value !== null
-  //           ? <RenderObject object={value} />
-  //           : JSON.stringify(value)}
-  //       </div>
-  //     );
-  //   });
-  // };
 
   const handleSlugChange = (event) => {
     setSlug(event.target.value)
@@ -142,6 +103,17 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
               value={increment}
               onChange={event => setIncrement(event.target.value)}
               placeholder="Enter increment"
+              style={{width: '100px'}}
+              />
+          </label>
+        </div>
+        <div>
+          <label className='formInput'>
+              Superblaster:{" "} {/* slider or radio button to turn on or off*/}
+              <input
+              type="checkbox"
+              value={superblaster}
+              onChange={event => setSuperblaster(event.target.value)}
               style={{width: '100px'}}
               />
           </label>
