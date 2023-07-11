@@ -46,6 +46,12 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
     if (slug !== '') {
       startScan(slug, margin, increment, schema, token, superblaster)
       setSlug('')
+      setMargin('0.25')
+      setIncrement('0.01')
+      setSchema('ERC721')
+      setToken(null)
+      setSuperblaster(false)
+      setCollectionInfo(null)
     }
   }
 
