@@ -115,10 +115,10 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
         </div>
         <div>
           <label className='formInput'>
-              Superblaster:{" "} {/* slider or radio button to turn on or off*/}
+              Superblaster:{" "} 
               <input
               type="checkbox"
-              value={superblaster}
+              checked={superblaster}
               onChange={event => setSuperblaster(event.target.value)}
               style={{width: '100px'}}
               />
