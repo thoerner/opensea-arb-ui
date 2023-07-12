@@ -11,7 +11,7 @@ const ActiveScans = ({ activeScans, stopScan }) => {
                             className="stopButton"
                             onClick={() => stopScan(scan)}
                         >X</button>
-                        <a href={`https://opensea.io/collection/${scan}`} target="_blank" rel="noreferrer"><h2 className="scanText">{scan}</h2></a>
+                        <a href={`https://opensea.io/collection/${scan.substring(0, scan.lastIndexOf('-') !== -1 ? scan.lastIndexOf('-') : scan.length)}`} target="_blank" rel="noreferrer"><h2 className="scanText">{scan}</h2></a>
                     </div>
                 ))
             )}

@@ -119,7 +119,7 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
               <input
               type="checkbox"
               checked={superblaster}
-              onChange={event => setSuperblaster(event.target.value)}
+              onChange={event => setSuperblaster(!superblaster)}
               style={{width: '100px'}}
               />
           </label>
