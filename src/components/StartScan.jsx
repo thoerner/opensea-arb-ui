@@ -49,6 +49,18 @@ function StartScan ({ startScan, fetchCollectionInfo }) {
   const [token, setToken] = useState(null)
   const [superblaster, setSuperblaster] = useState(false)
   const [collectionInfo, setCollectionInfo] = useState(null)
+  const [isCollectionOffer, setIsCollectionOffer] = useState(true)
+
+  function resetStates() {
+    setSlug('')
+    setMargin('0.25')
+    setIncrement('0.01')
+    setSchema('ERC721')
+    setToken(null)
+    setSuperblaster(false)
+    setIsCollectionOffer(true)
+    setCollectionInfo(null)
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -57,14 +69,8 @@ function StartScan ({ startScan, fetchCollectionInfo }) {
       return
     }
     if (slug !== '') {
-      startScan(slug, margin, increment, schema, token, superblaster)
-      setSlug('')
-      setMargin('0.25')
-      setIncrement('0.01')
-      setSchema('ERC721')
-      setToken(null)
-      setSuperblaster(false)
-      setCollectionInfo(null)
+      startScan(slug, margin, increment, schema, token, superblaster, isCollectionOffer)
+      resetStates()
     }
   }
 
@@ -133,6 +139,17 @@ function StartScan ({ startScan, fetchCollectionInfo }) {
               type="checkbox"
               checked={superblaster}
               onChange={() => setSuperblaster(!superblaster)}
+              style={{width: '100px', cursor: 'pointer'}}
+              />
+          </label>
+        </div>
+        <div>
+          <label className='formInput'>
+              Collection Offer:{" "}
+              <input
+              type="checkbox"
+              checked={isCollectionOffer}
+              onChange={() => setIsCollectionOffer(!isCollectionOffer)}
               style={{width: '100px', cursor: 'pointer'}}
               />
           </label>
