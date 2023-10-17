@@ -3,6 +3,7 @@ import axios from 'axios'
 const apiUrl = import.meta.env.VITE_API_URL
 
 export const getRequest = async (endPoint, retryCount = 0) => {
+    console.log('getRequest', endPoint)
     const options = {
         method: 'GET',
         url: apiUrl + endPoint,
@@ -12,7 +13,9 @@ export const getRequest = async (endPoint, retryCount = 0) => {
         }
     }
     try {
+        console.log(`Making request to ${apiUrl + endPoint}`)
         const { data } = await axios.request(options)
+        console.log('data', data)
         return data
     } catch (error) {
         if (retryCount > 3) {

@@ -39,7 +39,9 @@ function App() {
   }
 
   async function getCollectionInfo(slug) {
+    console.log(`getCollectionInfo: ${slug}`)
     const response = await getRequest(`/collectionInfo/${slug}`)
+    console.log(`response: ${response}`)
     return response
   }
 
@@ -48,7 +50,7 @@ function App() {
       <Toaster />
       <a href="https://opensea.io/ArbAnderson" target="_blank" rel="noreferrer"><img src={ArbLogo} alt="Arb Anderson" style={{transform: "translateY(7px)"}} /></a>
       <StartScan startScan={startScan} fetchCollectionInfo={getCollectionInfo} />
-      <ActiveScans activeScans={activeScans} stopScan={stopScan} />
+      <ActiveScans activeScans={activeScans} stopScan={stopScan} fetchCollectionInfo={getCollectionInfo} />
     </div>
   )
 }
