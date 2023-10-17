@@ -6,6 +6,7 @@
   background-image: url("./assets/turf.png");
   background-size: 96px;
   background-repeat: repeat;
+  background-attachment: fixed;
 }
 
 .App {
