@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import WeedLeaf from "../assets/weed_leaf.png";
 
 ActiveScans.propTypes = {
   activeScans: PropTypes.array.isRequired,
@@ -30,7 +31,17 @@ function ActiveScans({ activeScans, stopScan, fetchCollectionInfo }) {
 
   return (
     <div id="activeScans">
-      <h1>Active Scans</h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <img src={WeedLeaf} alt="weed leaf" style={{ width: "100px" }} />
+        <h1>Active Scans</h1>
+        <img src={WeedLeaf} alt="weed leaf" style={{ width: "100px" }} />
+      </div>
       {activeScans.length === 0 ? (
         <p>No active scans</p>
       ) : (
@@ -60,7 +71,6 @@ function ActiveScans({ activeScans, stopScan, fetchCollectionInfo }) {
                 }}
               />
             </a>
-
             <h2 className="scanText">
               <a
                 href={`https://opensea.io/collection/${row.scan.substring(
@@ -90,7 +100,6 @@ function ActiveScans({ activeScans, stopScan, fetchCollectionInfo }) {
                 </>
               ) : null}
             </p>
-
             <p
               className="scanText"
               style={{
