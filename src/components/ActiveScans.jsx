@@ -19,7 +19,6 @@ function ActiveScans({ activeScans, stopScan, fetchCollectionInfo }) {
             scan.lastIndexOf("-") !== -1 ? scan.lastIndexOf("-") : scan.length
           );
           const collectionInfo = await fetchCollectionInfo(slug);
-          // add scan to collectionInfo
           collectionInfo.scan = scan;
           return collectionInfo;
         })
@@ -50,19 +49,41 @@ function ActiveScans({ activeScans, stopScan, fetchCollectionInfo }) {
               target="_blank"
               rel="noreferrer"
             >
+            <img
+              src={row.imageUrl}
+              alt={row.name}
+              style={{
+                width: "100px",
+                height: "100px",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+            </a>
+            <a
+              href={`https://opensea.io/collection/${row.scan.substring(
+                0,
+                row.scan.lastIndexOf("-") !== -1
+                  ? row.scan.lastIndexOf("-")
+                  : row.scan.length
+              )}`}
+              target="_blank"
+              rel="noreferrer"
+            >
               <h2 className="scanText">{row.name}</h2>
             </a>
-            <p className="scanText">{row.schema}</p>
+            <p className="scanText">{row.schema}
             {row.schema === "ERC1155" ? (
-              <p className="scanText">
-                Token{" "}
+              <>
+                {" "}(Token{" "}
                 {row.scan.substring(
                   row.scan.lastIndexOf("-") !== -1
                     ? row.scan.lastIndexOf("-") + 1
                     : row.scan.length
-                )}
-              </p>
+                )})
+              </>
             ) : null}
+            </p>
           </div>
         ))
       )}
