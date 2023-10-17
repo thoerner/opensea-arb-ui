@@ -115,6 +115,7 @@ option:hover {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  align-items: center;
   color: black;
   width: 75vw;
   max-width: 75%;

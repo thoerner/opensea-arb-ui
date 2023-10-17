@@ -1,8 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import PropTypes from "prop-types";
 import toast from 'react-hot-toast'
 import { ERC1155Dropdown } from './ERC1155Dropdown'
 
-const CollectionInfo = ({ collectionInfo, slug, setToken, value }) => {
+CollectionInfo.propTypes = {
+  collectionInfo: PropTypes.object,
+  slug: PropTypes.string,
+  setToken: PropTypes.func.isRequired,
+  value: PropTypes.string,
+};
+
+StartScan.propTypes = {
+  startScan: PropTypes.func.isRequired,
+  fetchCollectionInfo: PropTypes.func.isRequired,
+};
+
+function CollectionInfo ({ collectionInfo, slug, setToken, value }) {
   if (!collectionInfo || !slug) return null
 
   if (value === null) {
@@ -28,7 +41,7 @@ const CollectionInfo = ({ collectionInfo, slug, setToken, value }) => {
   )
 }
 
-const StartScan = ({ startScan, fetchCollectionInfo }) => {
+function StartScan ({ startScan, fetchCollectionInfo }) {
   const [slug, setSlug] = useState('')
   const [margin, setMargin] = useState('0.25')
   const [increment, setIncrement] = useState('0.01')
@@ -119,8 +132,8 @@ const StartScan = ({ startScan, fetchCollectionInfo }) => {
               <input
               type="checkbox"
               checked={superblaster}
-              onChange={event => setSuperblaster(!superblaster)}
-              style={{width: '100px'}}
+              onChange={() => setSuperblaster(!superblaster)}
+              style={{width: '100px', cursor: 'pointer'}}
               />
           </label>
         </div>

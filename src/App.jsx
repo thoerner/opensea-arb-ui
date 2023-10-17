@@ -62,13 +62,33 @@ function App() {
   return (
     <div className="App">
       <Toaster />
-      <a href="https://opensea.io/ArbAnderson" target="_blank" rel="noreferrer">
-        <img
-          src={ArbLogo}
-          alt="Arb Anderson"
-          style={{ transform: "translateY(7px)", width: "100px" }}
-        />
-      </a>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          width: "50vw",
+        }}
+      >
+        <p
+          style={{
+            fontSize: "1.7rem",
+            transform: "translateY(1.5rem)",
+          }}
+        >Arb Anderson <span style={{fontSize: "1.1rem"}}>v1.0.2</span></p>
+        <a
+          href="https://opensea.io/ArbAnderson"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            src={ArbLogo}
+            alt="Arb Anderson"
+            style={{ transform: "translateY(7px)", width: "100px" }}
+          />
+        </a>
+        <div></div>
+      </div>
       <StartScan
         startScan={startScan}
         fetchCollectionInfo={getCollectionInfo}

@@ -49,40 +49,69 @@ function ActiveScans({ activeScans, stopScan, fetchCollectionInfo }) {
               target="_blank"
               rel="noreferrer"
             >
-            <img
-              src={row.imageUrl}
-              alt={row.name}
-              style={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                objectPosition: "center",
-              }}
-            />
+              <img
+                src={row.imageUrl}
+                alt={row.name}
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                }}
+              />
             </a>
-            <a
-              href={`https://opensea.io/collection/${row.scan.substring(
-                0,
-                row.scan.lastIndexOf("-") !== -1
-                  ? row.scan.lastIndexOf("-")
-                  : row.scan.length
-              )}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <h2 className="scanText">{row.name}</h2>
-            </a>
-            <p className="scanText">{row.schema}
-            {row.schema === "ERC1155" ? (
-              <>
-                {" "}(Token{" "}
-                {row.scan.substring(
+
+            <h2 className="scanText">
+              <a
+                href={`https://opensea.io/collection/${row.scan.substring(
+                  0,
                   row.scan.lastIndexOf("-") !== -1
-                    ? row.scan.lastIndexOf("-") + 1
+                    ? row.scan.lastIndexOf("-")
                     : row.scan.length
-                )})
-              </>
-            ) : null}
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {row.name}
+              </a>
+            </h2>
+            <p className="scanText">
+              {row.schema}
+              {row.schema === "ERC1155" ? (
+                <>
+                  {" "}
+                  (Token{" "}
+                  {row.scan.substring(
+                    row.scan.lastIndexOf("-") !== -1
+                      ? row.scan.lastIndexOf("-") + 1
+                      : row.scan.length
+                  )}
+                  )
+                </>
+              ) : null}
+            </p>
+
+            <p
+              className="scanText"
+              style={{
+                color: "blue",
+                textDecoration: "underline",
+                fontSize: "0.8rem",
+              }}
+            >
+              {" "}
+              <a
+                href={`http://44.208.239.99:3000/collectionInfo/${row.scan.substring(
+                  0,
+                  row.scan.lastIndexOf("-") !== -1
+                    ? row.scan.lastIndexOf("-")
+                    : row.scan.length
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Info
+              </a>
             </p>
           </div>
         ))
