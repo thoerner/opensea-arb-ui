@@ -28,9 +28,9 @@ function CollectionInfo ({ collectionInfo, slug, setToken, value }) {
           <a href={`https://opensea.io/collection/${slug}`} target='_blank' rel="noreferrer">{collectionInfo.name}</a><br/><br/>
           <img src={collectionInfo.imageUrl} alt={collectionInfo.name} style={{width: '100px'}}/><br/>
           {collectionInfo.creatorFee.isEnforced ? <><span style={{color: 'red'}}>Creator Fee enforced!</span> <span style={{color: 'yellow'}}>{collectionInfo.creatorFee.fee / 100}%</span></> : <span style={{color: 'darkgreen'}}>Creator Fee is not enforced</span>}<br/>
-          <span style={{color: 'purple'}}>Floor: {collectionInfo.stats.floor_price}</span><br/>
+          <span style={{color: 'purple'}}>Floor: {collectionInfo.stats.total.floor_price}</span><br/>
           <span style={{color: 'blue'}}>Schema: {collectionInfo.schema}</span><br/>
-          {collectionInfo.schema === 'ERC721' ? <></> :
+          {collectionInfo.schema === 'erc721' ? <></> :
           <>
           <span style={{color: 'orange'}}>Token:</span>
           <ERC1155Dropdown items={collectionInfo.nfts} setToken={setToken} value={value}/>
@@ -45,7 +45,7 @@ function StartScan ({ startScan, fetchCollectionInfo }) {
   const [slug, setSlug] = useState('')
   const [margin, setMargin] = useState('0.25')
   const [increment, setIncrement] = useState('0.01')
-  const [schema, setSchema] = useState('ERC721')
+  const [schema, setSchema] = useState('erc721')
   const [token, setToken] = useState(null)
   const [superblaster, setSuperblaster] = useState(false)
   const [collectionInfo, setCollectionInfo] = useState(null)
@@ -55,7 +55,7 @@ function StartScan ({ startScan, fetchCollectionInfo }) {
     setSlug('')
     setMargin('0.25')
     setIncrement('0.01')
-    setSchema('ERC721')
+    setSchema('erc721')
     setToken(null)
     setSuperblaster(false)
     setIsCollectionOffer(true)
