@@ -87,7 +87,7 @@ function ActiveScans({ activeScans, stopScan, fetchCollectionInfo }) {
             </h2>
             <p className="scanText">
               {row.schema}
-              {row.schema === "ERC1155" ? (
+              {row.schema === "erc1155" ? (
                 <>
                   {" "}
                   (Token{" "}
