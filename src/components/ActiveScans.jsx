@@ -94,25 +94,32 @@ function ActiveScans({
               </a>
             </h2>
             <p className="scanText">
-              {row.schema}
               {row.schema === "erc1155" ? (
                 <>
                   {" "}
                   (
-                  {row.tokenInfo.find(
-                    (token) =>
-                      token.identifier ===
-                      row.scan.substring(
-                        row.scan.lastIndexOf("-") !== -1
-                          ? row.scan.lastIndexOf("-") + 1
-                          : row.scan.length
-                      )
-                  )?.name ||
-                    `Token #${row.scan.substring(
+                  <span
+                    title={`Token #${row.scan.substring(
                       row.scan.lastIndexOf("-") !== -1
                         ? row.scan.lastIndexOf("-") + 1
                         : row.scan.length
                     )}`}
+                  >
+                    {row.tokenInfo.find(
+                      (token) =>
+                        token.identifier ===
+                        row.scan.substring(
+                          row.scan.lastIndexOf("-") !== -1
+                            ? row.scan.lastIndexOf("-") + 1
+                            : row.scan.length
+                        )
+                    )?.name ||
+                      `Token #${row.scan.substring(
+                        row.scan.lastIndexOf("-") !== -1
+                          ? row.scan.lastIndexOf("-") + 1
+                          : row.scan.length
+                      )}`}
+                  </span>
                   )
                 </>
               ) : null}
