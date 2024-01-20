@@ -64,13 +64,6 @@ function App() {
     return response;
   }
 
-  async function getTokenInfo(slug) {
-    console.log(`getTokenInfo: ${slug}`);
-    const response = await getRequest(`/collectionInfo/tokenInfo/${slug}`);
-    console.log(`response: ${response}`);
-    return response;
-  }
-
   return (
     <div className="App">
       <Toaster />
@@ -113,7 +106,6 @@ function App() {
             activeScans={activeScans}
             stopScan={stopScan}
             fetchCollectionInfo={getCollectionInfo}
-            fetchTokenInfo={getTokenInfo}
           />
         </>
       ) : (

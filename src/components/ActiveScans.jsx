@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import WeedLeaf from "../assets/weed_leaf.png";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 ActiveScans.propTypes = {
   activeScans: PropTypes.array.isRequired,
   stopScan: PropTypes.func.isRequired,
   fetchCollectionInfo: PropTypes.func.isRequired,
-  fetchTokenInfo: PropTypes.func.isRequired,
 };
 
 function ActiveScans({
   activeScans,
   stopScan,
   fetchCollectionInfo,
-  fetchTokenInfo,
 }) {
   const [rowInfo, setRowInfo] = useState([]);
 
@@ -26,16 +26,14 @@ function ActiveScans({
             scan.lastIndexOf("-") !== -1 ? scan.lastIndexOf("-") : scan.length
           );
           const collectionInfo = await fetchCollectionInfo(slug);
-          const tokenInfo = await fetchTokenInfo(slug);
           collectionInfo.scan = scan;
-          collectionInfo.tokenInfo = tokenInfo;
           return collectionInfo;
         })
       );
       setRowInfo(info);
     };
     getInfo();
-  }, [activeScans, fetchCollectionInfo, fetchTokenInfo]);
+  }, [activeScans, fetchCollectionInfo]);
 
   return (
     <div id="activeScans">
@@ -105,7 +103,7 @@ function ActiveScans({
                         : row.scan.length
                     )}`}
                   >
-                    {row.tokenInfo.find(
+                    {row.nfts.find(
                       (token) =>
                         token.identifier ===
                         row.scan.substring(
@@ -134,7 +132,7 @@ function ActiveScans({
             >
               {" "}
               <a
-                href={`http://44.208.239.99:3000/collectionInfo/${row.scan.substring(
+                href={`${API_URL}/collectionInfo/${row.scan.substring(
                   0,
                   row.scan.lastIndexOf("-") !== -1
                     ? row.scan.lastIndexOf("-")
